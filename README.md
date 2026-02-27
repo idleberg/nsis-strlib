@@ -65,9 +65,13 @@ All transformations follow the same calling convention: `${Macro} INPUT OUTPUT`.
 | `${ToKebabCase}`    | `"helloWorld"`    | `"hello-world"`   | Convert to kebab-case                  |
 | `${Slugify}`        | `"Ärger über Öl"` | `"arger-uber-ol"` | URL-safe slug                          |
 
-Word-aware transforms (PascalCase through Slugify) detect word boundaries from camelCase transitions, underscores, hyphens, spaces, and other non-alphanumeric characters. Acronyms like `HTMLParser` are split correctly (`Html` + `Parser`). Digits are preserved as part of the current word.
-
 See [example](Examples\StrLib.nsi) for details.
+
+## Known Issues
+
+### File Encoding
+
+These macros expect your script files to be encoded properly as UTF-8 with BOM.
 
 ## License
 
