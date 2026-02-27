@@ -67,7 +67,7 @@ All transformations follow the same calling convention: `${Macro} INPUT OUTPUT`.
 
 Word-aware transforms (PascalCase through Slugify) detect word boundaries from camelCase transitions, underscores, hyphens, spaces, and other non-alphanumeric characters. Acronyms like `HTMLParser` are split correctly (`Html` + `Parser`). Digits are preserved as part of the current word.
 
-See `Examples\StrLib.nsis`
+See [example](`Examples\StrLib.nsi`) for detailled usage.
 
 ## License
 
