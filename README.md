@@ -20,7 +20,7 @@ Alternatively, copy the contents of `Include\` to `${NSISDIR}\Include\`:
 ```
 NSIS\Include\StrLib.nsh
 NSIS\Include\StrLib\Logical.nsh
-NSIS\Include\StrLib\Transformer.nsh
+NSIS\Include\StrLib\Transforms.nsh
 ```
 
 ## Usage
