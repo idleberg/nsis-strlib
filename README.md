@@ -57,11 +57,11 @@ All transformations follow the same calling convention: `${Macro} INPUT OUTPUT`.
 | `${PadRight}`       | `"hi" 5 "."`      | `"hi..."`         | Pad on the right to target length      |
 | `${ToLowerCase}`    | `"Hello World"`   | `"hello world"`   | Convert to lowercase                   |
 | `${ToUpperCase}`    | `"Hello World"`   | `"HELLO WORLD"`   | Convert to uppercase                   |
+| `${ToCapitalCase}`  | `"hello_world"`   | `"Hello World"`   | Convert to Capital Case                |
 | `${ToPascalCase}`   | `"hello_world"`   | `"HelloWorld"`    | Convert to PascalCase                  |
 | `${ToCamelCase}`    | `"hello_world"`   | `"helloWorld"`    | Convert to camelCase                   |
 | `${ToSnakeCase}`    | `"helloWorld"`    | `"hello_world"`   | Convert to snake_case                  |
 | `${ToConstantCase}` | `"helloWorld"`    | `"HELLO_WORLD"`   | Convert to CONSTANT_CASE               |
-| `${ToCapitalCase}`  | `"hello_world"`   | `"Hello World"`   | Convert to Capital Case                |
 | `${ToKebabCase}`    | `"helloWorld"`    | `"hello-world"`   | Convert to kebab-case                  |
 | `${Slugify}`        | `"Ärger über Öl"` | `"arger-uber-ol"` | URL-safe slug                          |
 
