@@ -66,7 +66,7 @@ All transformations follow the same calling convention: `${Macro} INPUT OUTPUT`.
 | `${ToKebabCase}`    | `"helloWorld"`    | `"hello-world"`   | Convert to kebab-case                  |
 | `${Slugify}`        | `"Ärger über Öl"` | `"arger-uber-ol"` | URL-safe slug                          |
 
-See [example](https://github.com/idleberg/nsis-strlib/tree/main/Examples/StrLib.nsi) for details.
+See the [example](https://github.com/idleberg/nsis-strlib/blob/main/Examples/StrLib.nsi) for details.
 
 ## Known Issues
 
