@@ -71,4 +71,4 @@ See `Examples\StrLib.nsis`
 
 ## License
 
-Public domain.
+[The MIT License](LICENSE) - Feel free to use, modify, and distribute this code.
