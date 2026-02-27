@@ -9,7 +9,7 @@ A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib str
 
 ## Installation
 
-Compile `installme.nsi` and execute it:
+Clone the repository. Compile `installme.nsi` and execute it:
 
 ```powershell
 makensis -DINSTALLNAME=StrLib installme.nsi
