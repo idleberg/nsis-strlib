@@ -31,7 +31,7 @@ NSIS\Include\StrLib\Transforms.nsh
 
 ## Macros
 
-### String tests
+### String operators
 
 LogicLib operators for use with `${If}`, `${IfNot}`, `${ElseIf}`, `${AndIf}`, `${OrIf}`, etc.
 
