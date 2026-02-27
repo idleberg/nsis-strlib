@@ -15,7 +15,7 @@ Compile `installme.nsi` and execute it:
 makensis -DINSTALLNAME=StrLib installme.nsi
 ```
 
-Alternatively, copy the contents of `Include\` to `${NSISDIR}\Include\`:
+Alternatively, copy the contents of `Include\` to `${NSISDIR}\Include`:
 
 ```
 NSIS\Include\StrLib.nsh
