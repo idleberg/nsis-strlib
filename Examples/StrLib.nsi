@@ -1,6 +1,6 @@
 ﻿
 Name "StrLib.nsh Examples"
-OutFile "StrLib_Examples.exe"
+OutFile "StrLib.exe"
 ShowInstDetails show
 RequestExecutionLevel user
 Unicode true
