@@ -1,6 +1,8 @@
-; ---------------------
-;      StrLib.nsh
-; ---------------------
+; -------------
+;  StrLib.nsh
+; -------------
+;
+; The MIT License (MIT)
 ;
 ; NSIS String Library — provides LogicLib string test operators
 ; and string transformation macros.

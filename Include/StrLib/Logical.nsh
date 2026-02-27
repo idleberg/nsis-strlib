@@ -1,6 +1,8 @@
-; ---------------------
+; ----------------------
 ;   StrLib\Logical.nsh
-; ---------------------
+; ----------------------
+;
+; The MIT License (MIT)
 ;
 ; LogicLib extensions for string prefix, suffix and substring tests.
 ;

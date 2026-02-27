@@ -1,6 +1,6 @@
-; ----------------------
+; ------------------------
 ;  StrLib\Transforms.nsh
-; ----------------------
+; ------------------------
 ;
 ; String transformation macros for NSIS.
 ;
