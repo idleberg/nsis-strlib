@@ -31,7 +31,7 @@ NSIS\Include\StrLib\Transformer.nsh
 
 ## Macros
 
-### String tests (`StrLib\Logical.nsh`)
+### String tests
 
 LogicLib operators for use with `${If}`, `${IfNot}`, `${ElseIf}`, `${AndIf}`, `${OrIf}`, etc.
 
@@ -44,7 +44,7 @@ LogicLib operators for use with `${If}`, `${IfNot}`, `${ElseIf}`, `${AndIf}`, `$
 | `${Contains}`    | `${If} $0 ${Contains} "temp"`    | Case-insensitive substring test |
 | `${ContainsS}`   | `${If} $0 ${ContainsS} "Temp"`   | Case-sensitive substring test   |
 
-### String transformations (`StrLib\Transformer.nsh`)
+### String transformations
 
 All transformations follow the same calling convention: `${Macro} INPUT OUTPUT`.
 
