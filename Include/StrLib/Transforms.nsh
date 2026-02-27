@@ -10,6 +10,7 @@
 ;   ${TrimRight}      "  hello  "        $R0   ; "  hello"
 ;   ${PadLeft}        "hi" 5 "0"         $R0   ; "000hi"
 ;   ${PadRight}       "hi" 5 "."         $R0   ; "hi..."
+;   ${Reverse}        "Hello"            $R0   ; "olleH"
 ;   ${ToLowerCase}    "Hello World"      $R0   ; "hello world"
 ;   ${ToUpperCase}    "Hello World"      $R0   ; "HELLO WORLD"
 ;   ${ToPascalCase}   "hello_world"      $R0   ; "HelloWorld"
@@ -271,6 +272,50 @@
     Pop ${OUTPUT}
   !macroend
   !define ToUpperCase `!insertmacro ToUpperCase`
+
+  ; ============================================================
+  ;  Reverse
+  ; ============================================================
+
+  ; --- Reverse ---
+  ; Reverses the characters in the string.
+
+  !macro _StrLib_Reverse
+    Exch $0 ; input
+    Push $1 ; result
+    Push $2 ; index (counts down)
+    Push $3 ; current char
+
+    StrCpy $1 ""
+    StrLen $2 $0
+    ${If} $2 = 0
+      Goto _StrLib_Reverse_Done
+    ${EndIf}
+
+    IntOp $2 $2 - 1
+
+    _StrLib_Reverse_Loop:
+      StrCpy $3 $0 1 $2
+      StrCpy $1 "$1$3"
+      IntOp $2 $2 - 1
+      ${If} $2 >= 0
+        Goto _StrLib_Reverse_Loop
+      ${EndIf}
+
+    _StrLib_Reverse_Done:
+    StrCpy $0 $1
+    Pop $3
+    Pop $2
+    Pop $1
+    Exch $0
+  !macroend
+
+  !macro Reverse INPUT OUTPUT
+    Push `${INPUT}`
+    ${CallArtificialFunction} _StrLib_Reverse
+    Pop ${OUTPUT}
+  !macroend
+  !define Reverse `!insertmacro Reverse`
 
   ; ============================================================
   ;  Word-aware transformations — shared core

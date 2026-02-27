@@ -562,6 +562,38 @@ Section "Run tests"
     Goto +2
     DetailPrint 'FAILED: Slugify multiple spaces = "$R0"'
 
+  ; ===== Reverse =====
+
+  ${Reverse} "Hello" $R0
+  StrCmp $R0 "olleH" 0 +3
+    DetailPrint 'PASSED: Reverse "Hello" = "olleH"'
+    Goto +2
+    DetailPrint 'FAILED: Reverse "Hello" = "$R0"'
+
+  ${Reverse} "abcdef" $R0
+  StrCmp $R0 "fedcba" 0 +3
+    DetailPrint 'PASSED: Reverse "abcdef" = "fedcba"'
+    Goto +2
+    DetailPrint 'FAILED: Reverse "abcdef" = "$R0"'
+
+  ${Reverse} "a" $R0
+  StrCmp $R0 "a" 0 +3
+    DetailPrint 'PASSED: Reverse "a" = "a"'
+    Goto +2
+    DetailPrint 'FAILED: Reverse "a" = "$R0"'
+
+  ${Reverse} "" $R0
+  StrCmp $R0 "" 0 +3
+    DetailPrint 'PASSED: Reverse "" = ""'
+    Goto +2
+    DetailPrint 'FAILED: Reverse "" = "$R0"'
+
+  ${Reverse} "Hello World" $R0
+  StrCmp $R0 "dlroW olleH" 0 +3
+    DetailPrint 'PASSED: Reverse "Hello World" = "dlroW olleH"'
+    Goto +2
+    DetailPrint 'FAILED: Reverse "Hello World" = "$R0"'
+
   ; =============================================================
   ;  Edge cases
   ; =============================================================

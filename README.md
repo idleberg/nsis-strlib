@@ -55,6 +55,7 @@ All transformations follow the same calling convention: `${Macro} INPUT OUTPUT`.
 | `${Trim}`           | `"  hello  "`     | `"hello"`         | Remove leading and trailing whitespace |
 | `${PadLeft}`        | `"hi" 5 "0"`      | `"000hi"`         | Pad on the left to target length       |
 | `${PadRight}`       | `"hi" 5 "."`      | `"hi..."`         | Pad on the right to target length      |
+| `${Reverse}`        | `"Hello"`         | `"olleH"`         | Reverse the string                     |
 | `${ToLowerCase}`    | `"Hello World"`   | `"hello world"`   | Convert to lowercase                   |
 | `${ToUpperCase}`    | `"Hello World"`   | `"HELLO WORLD"`   | Convert to uppercase                   |
 | `${ToCapitalCase}`  | `"hello_world"`   | `"Hello World"`   | Convert to Capital Case                |
