@@ -43,6 +43,8 @@ LogicLib operators for use with `${If}`, `${IfNot}`, `${ElseIf}`, `${AndIf}`, `$
 | `${EndsWithS}`   | `${If} $0 ${EndsWithS} ".EXE"`   | Case-sensitive suffix test      |
 | `${Contains}`    | `${If} $0 ${Contains} "temp"`    | Case-insensitive substring test |
 | `${ContainsS}`   | `${If} $0 ${ContainsS} "Temp"`   | Case-sensitive substring test   |
+| `${IsLowerCase}` | `${If} ${IsLowerCase} $0`        | All characters are lowercase    |
+| `${IsUpperCase}` | `${If} ${IsUpperCase} $0`        | All characters are uppercase    |
 
 ### String transformations
 

@@ -197,6 +197,105 @@ Section "Run tests"
     DetailPrint 'FAILED: "Hello World" ContainsS "Hello"'
   ${EndIf}
 
+  ; ===== IsLowerCase =====
+
+  ${If} ${IsLowerCase} "hello"
+    DetailPrint 'PASSED: IsLowerCase "hello"'
+  ${Else}
+    DetailPrint 'FAILED: IsLowerCase "hello"'
+  ${EndIf}
+
+  ${If} ${IsLowerCase} "hello world"
+    DetailPrint 'PASSED: IsLowerCase "hello world"'
+  ${Else}
+    DetailPrint 'FAILED: IsLowerCase "hello world"'
+  ${EndIf}
+
+  ${If} ${IsLowerCase} "Hello"
+    DetailPrint 'FAILED: "Hello" should not be IsLowerCase'
+  ${Else}
+    DetailPrint 'PASSED: "Hello" is not IsLowerCase'
+  ${EndIf}
+
+  ${If} ${IsLowerCase} "HELLO"
+    DetailPrint 'FAILED: "HELLO" should not be IsLowerCase'
+  ${Else}
+    DetailPrint 'PASSED: "HELLO" is not IsLowerCase'
+  ${EndIf}
+
+  ${If} ${IsLowerCase} ""
+    DetailPrint 'PASSED: IsLowerCase "" (empty string)'
+  ${Else}
+    DetailPrint 'FAILED: IsLowerCase "" (empty string)'
+  ${EndIf}
+
+  ${If} ${IsLowerCase} "123"
+    DetailPrint 'PASSED: IsLowerCase "123" (no alpha chars)'
+  ${Else}
+    DetailPrint 'FAILED: IsLowerCase "123" (no alpha chars)'
+  ${EndIf}
+
+  ${IfNot} ${IsLowerCase} "Hello"
+    DetailPrint 'PASSED: IfNot IsLowerCase "Hello"'
+  ${Else}
+    DetailPrint 'FAILED: IfNot IsLowerCase "Hello"'
+  ${EndIf}
+
+  ; ===== IsUpperCase =====
+
+  ${If} ${IsUpperCase} "HELLO"
+    DetailPrint 'PASSED: IsUpperCase "HELLO"'
+  ${Else}
+    DetailPrint 'FAILED: IsUpperCase "HELLO"'
+  ${EndIf}
+
+  ${If} ${IsUpperCase} "HELLO WORLD"
+    DetailPrint 'PASSED: IsUpperCase "HELLO WORLD"'
+  ${Else}
+    DetailPrint 'FAILED: IsUpperCase "HELLO WORLD"'
+  ${EndIf}
+
+  ${If} ${IsUpperCase} "Hello"
+    DetailPrint 'FAILED: "Hello" should not be IsUpperCase'
+  ${Else}
+    DetailPrint 'PASSED: "Hello" is not IsUpperCase'
+  ${EndIf}
+
+  ${If} ${IsUpperCase} "hello"
+    DetailPrint 'FAILED: "hello" should not be IsUpperCase'
+  ${Else}
+    DetailPrint 'PASSED: "hello" is not IsUpperCase'
+  ${EndIf}
+
+  ${If} ${IsUpperCase} ""
+    DetailPrint 'PASSED: IsUpperCase "" (empty string)'
+  ${Else}
+    DetailPrint 'FAILED: IsUpperCase "" (empty string)'
+  ${EndIf}
+
+  ${If} ${IsUpperCase} "123"
+    DetailPrint 'PASSED: IsUpperCase "123" (no alpha chars)'
+  ${Else}
+    DetailPrint 'FAILED: IsUpperCase "123" (no alpha chars)'
+  ${EndIf}
+
+  ${IfNot} ${IsUpperCase} "Hello"
+    DetailPrint 'PASSED: IfNot IsUpperCase "Hello"'
+  ${Else}
+    DetailPrint 'FAILED: IfNot IsUpperCase "Hello"'
+  ${EndIf}
+
+  ; Register preservation for IsLowerCase/IsUpperCase
+  StrCpy $0 "preserved0"
+  ${If} ${IsLowerCase} "hello"
+    Nop
+  ${EndIf}
+  ${If} $0 == "preserved0"
+    DetailPrint "PASSED: $$0 preserved after IsLowerCase"
+  ${Else}
+    DetailPrint "FAILED: $$0=$0 (expected preserved0)"
+  ${EndIf}
+
   ; ===== ElseIf integration =====
 
   StrCpy $R1 "C:\Program Files\MyApp\setup.exe"

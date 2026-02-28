@@ -35,6 +35,11 @@
 ;     ${If} $Haystack ${StartsWithS} "HTTP"
 ;     ${If} $FileName ${EndsWithS} ".DLL"
 ;     ${If} $Path ${ContainsS} "Temp"
+;
+;   Case checks (unary conditions):
+;
+;     ${If} ${IsLowerCase} $String
+;     ${If} ${IsUpperCase} $String
 
 !include "LogicLib.nsh"
 
@@ -138,5 +143,45 @@
       IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
   !macroend
   !define ContainsS `ContainsS`
+
+  ; --- IsLowerCase ---
+  ; Note: Internally saves and restores $0 via the stack.
+
+  !macro _IsLowerCase _a _b _t _f
+    !insertmacro _LOGICLIB_TEMP
+    Push $0
+    StrCpy $0 `${_b}`
+    System::Call "User32::CharLower(t r0 r0)i"
+    StrCmpS $0 `${_b}` _LogicLib_IsLCY_${LOGICLIB_COUNTER}
+    StrCpy $_LOGICLIB_TEMP 0
+    Goto _LogicLib_IsLCD_${LOGICLIB_COUNTER}
+    _LogicLib_IsLCY_${LOGICLIB_COUNTER}:
+      StrCpy $_LOGICLIB_TEMP 1
+    _LogicLib_IsLCD_${LOGICLIB_COUNTER}:
+      Pop $0
+      !insertmacro _IncreaseCounter
+      IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
+  !macroend
+  !define IsLowerCase `"" IsLowerCase`
+
+  ; --- IsUpperCase ---
+  ; Note: Internally saves and restores $0 via the stack.
+
+  !macro _IsUpperCase _a _b _t _f
+    !insertmacro _LOGICLIB_TEMP
+    Push $0
+    StrCpy $0 `${_b}`
+    System::Call "User32::CharUpper(t r0 r0)i"
+    StrCmpS $0 `${_b}` _LogicLib_IsUCY_${LOGICLIB_COUNTER}
+    StrCpy $_LOGICLIB_TEMP 0
+    Goto _LogicLib_IsUCD_${LOGICLIB_COUNTER}
+    _LogicLib_IsUCY_${LOGICLIB_COUNTER}:
+      StrCpy $_LOGICLIB_TEMP 1
+    _LogicLib_IsUCD_${LOGICLIB_COUNTER}:
+      Pop $0
+      !insertmacro _IncreaseCounter
+      IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
+  !macroend
+  !define IsUpperCase `"" IsUpperCase`
 
 !endif ; STRLIB_TESTS_INCLUDED
