@@ -1,4 +1,4 @@
-# StrLib
+# StrLib.nsh
 
 A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib string-test operators and string transformation macros.
 
@@ -9,7 +9,7 @@ A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib str
 
 ## Installation
 
-Compile `installme.nsi` and execute it:
+Clone the repository. Compile `installme.nsi` and execute it:
 
 ```powershell
 makensis -DINSTALLNAME=StrLib installme.nsi
@@ -68,7 +68,7 @@ All transformations follow the same calling convention: `${Macro} INPUT OUTPUT`.
 | `${ToKebabCase}`    | `"helloWorld"`    | `"hello-world"`   | Convert to kebab-case                  |
 | `${Slugify}`        | `"Ärger über Öl"` | `"arger-uber-ol"` | URL-safe slug                          |
 
-See [example](Examples\StrLib.nsi) for details.
+See the [example](https://github.com/idleberg/nsis-strlib/blob/main/Examples/StrLib.nsi) for details.
 
 ## Known Issues
 
