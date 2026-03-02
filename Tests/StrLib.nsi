@@ -11,7 +11,6 @@ Unicode true
 Page instfiles
 
 Section "StartsWith (case-insensitive)"
-
   ${Assert} "Hello World" ${StartsWith} "Hello" \
     '"Hello World" StartsWith "Hello"'
   ${AssertNot} "Hello World" ${StartsWith} "World" \
@@ -22,20 +21,16 @@ Section "StartsWith (case-insensitive)"
     '"Hello World" StartsWith "hello" (case-insensitive)'
   ${Assert} "Hello" ${StartsWith} "" \
     '"Hello" StartsWith "" (empty needle)'
-
 SectionEnd
 
 Section "StartsWithS (case-sensitive)"
-
   ${Assert} "Hello World" ${StartsWithS} "Hello" \
     '"Hello World" StartsWithS "Hello"'
   ${AssertNot} "Hello World" ${StartsWithS} "hello" \
     '"Hello World" does not StartsWithS "hello"'
-
 SectionEnd
 
 Section "EndsWith (case-insensitive)"
-
   ${Assert} "Hello World" ${EndsWith} "World" \
     '"Hello World" EndsWith "World"'
   ${AssertNot} "Hello World" ${EndsWith} "Hello" \
@@ -48,20 +43,16 @@ Section "EndsWith (case-insensitive)"
     '"setup.exe" EndsWith ".exe"'
   ${Assert} "setup.exe" ${EndsWith} ".EXE" \
     '"setup.exe" EndsWith ".EXE" (case-insensitive)'
-
 SectionEnd
 
 Section "EndsWithS (case-sensitive)"
-
   ${Assert} "setup.exe" ${EndsWithS} ".exe" \
     '"setup.exe" EndsWithS ".exe"'
   ${AssertNot} "setup.exe" ${EndsWithS} ".EXE" \
     '"setup.exe" does not EndsWithS ".EXE"'
-
 SectionEnd
 
 Section "Contains (case-insensitive)"
-
   ${Assert} "Hello World" ${Contains} "lo Wo" \
     '"Hello World" Contains "lo Wo"'
   ${AssertNot} "Hello World" ${Contains} "xyz" \
@@ -78,22 +69,18 @@ Section "Contains (case-insensitive)"
     '"Hi" does not Contains "Hello World" (needle longer)'
   ${AssertNot} "" ${Contains} "x" \
     '"" does not Contains "x" (empty haystack)'
-
 SectionEnd
 
 Section "ContainsS (case-sensitive)"
-
   ${Assert} "Hello World" ${ContainsS} "lo Wo" \
     '"Hello World" ContainsS "lo Wo"'
   ${AssertNot} "Hello World" ${ContainsS} "hello" \
     '"Hello World" does not ContainsS "hello"'
   ${Assert} "Hello World" ${ContainsS} "Hello" \
     '"Hello World" ContainsS "Hello"'
-
 SectionEnd
 
 Section "IsLowerCase"
-
   ${Assert} ${IsLowerCase} "hello" \
     'IsLowerCase "hello"'
   ${Assert} ${IsLowerCase} "hello world" \
@@ -106,11 +93,9 @@ Section "IsLowerCase"
     'IsLowerCase "" (empty string)'
   ${Assert} ${IsLowerCase} "123" \
     'IsLowerCase "123" (no alpha chars)'
-
 SectionEnd
 
 Section "IsUpperCase"
-
   ${Assert} ${IsUpperCase} "HELLO" \
     'IsUpperCase "HELLO"'
   ${Assert} ${IsUpperCase} "HELLO WORLD" \
@@ -123,11 +108,9 @@ Section "IsUpperCase"
     'IsUpperCase "" (empty string)'
   ${Assert} ${IsUpperCase} "123" \
     'IsUpperCase "123" (no alpha chars)'
-
 SectionEnd
 
 Section "Register preservation (logical)"
-
   StrCpy $0 "preserved0"
   ${If} ${IsLowerCase} "hello"
     Nop
@@ -144,11 +127,9 @@ Section "Register preservation (logical)"
     'Contains preserves $$0'
   ${Assert} $1 == "preserved1" \
     'Contains preserves $$1'
-
 SectionEnd
 
 Section "LogicLib integration"
-
   ; ElseIf
   StrCpy $R1 "C:\Program Files\MyApp\setup.exe"
   ${If} $R1 ${EndsWith} ".msi"
@@ -181,11 +162,9 @@ Section "LogicLib integration"
   ${EndIf}
   ${Assert} $R0 == "yes" \
     'OrIf (first false, second true)'
-
 SectionEnd
 
 Section "TrimLeft"
-
   ${TrimLeft} "  hello  " $R0
   ${Assert} $R0 == "hello  " \
     'TrimLeft "  hello  " = "hello  "'
@@ -201,11 +180,9 @@ Section "TrimLeft"
   ${TrimLeft} "" $R0
   ${Assert} $R0 == "" \
     'TrimLeft empty string'
-
 SectionEnd
 
 Section "TrimRight"
-
   ${TrimRight} "  hello  " $R0
   ${Assert} $R0 == "  hello" \
     'TrimRight "  hello  " = "  hello"'
@@ -213,11 +190,9 @@ Section "TrimRight"
   ${TrimRight} "hello$\t$\n" $R0
   ${Assert} $R0 == "hello" \
     'TrimRight tab+newline suffix'
-
 SectionEnd
 
 Section "Trim"
-
   ${Trim} "  hello  " $R0
   ${Assert} $R0 == "hello" \
     'Trim "  hello  " = "hello"'
@@ -229,11 +204,9 @@ Section "Trim"
   ${Trim} "   " $R0
   ${Assert} $R0 == "" \
     'Trim all-whitespace = ""'
-
 SectionEnd
 
 Section "PadLeft"
-
   ${PadLeft} "hi" 5 "0" $R0
   ${Assert} $R0 == "000hi" \
     'PadLeft "hi" 5 "0" = "000hi"'
@@ -249,11 +222,9 @@ Section "PadLeft"
   ${PadLeft} "hi" 5 "" $R0
   ${Assert} $R0 == "hi" \
     'PadLeft empty pad = no-op'
-
 SectionEnd
 
 Section "PadRight"
-
   ${PadRight} "hi" 5 "." $R0
   ${Assert} $R0 == "hi..." \
     'PadRight "hi" 5 "." = "hi..."'
@@ -261,11 +232,9 @@ Section "PadRight"
   ${PadRight} "hello" 3 "." $R0
   ${Assert} $R0 == "hello" \
     'PadRight no-op (already >= target)'
-
 SectionEnd
 
 Section "ToLowerCase"
-
   ${ToLowerCase} "Hello World" $R0
   ${Assert} $R0 == "hello world" \
     'ToLowerCase "Hello World" = "hello world"'
@@ -277,11 +246,9 @@ Section "ToLowerCase"
   ${ToLowerCase} "already" $R0
   ${Assert} $R0 == "already" \
     'ToLowerCase no-op'
-
 SectionEnd
 
 Section "ToUpperCase"
-
   ${ToUpperCase} "Hello World" $R0
   ${Assert} $R0 == "HELLO WORLD" \
     'ToUpperCase "Hello World" = "HELLO WORLD"'
@@ -293,11 +260,9 @@ Section "ToUpperCase"
   ${ToUpperCase} "ALREADY" $R0
   ${Assert} $R0 == "ALREADY" \
     'ToUpperCase no-op'
-
 SectionEnd
 
 Section "ToPascalCase"
-
   ${ToPascalCase} "hello_world" $R0
   ${Assert} $R0 == "HelloWorld" \
     'ToPascalCase "hello_world" = "HelloWorld"'
@@ -317,11 +282,9 @@ Section "ToPascalCase"
   ${ToPascalCase} "HTMLParser" $R0
   ${Assert} $R0 == "HtmlParser" \
     'ToPascalCase "HTMLParser" = "HtmlParser"'
-
 SectionEnd
 
 Section "ToCamelCase"
-
   ${ToCamelCase} "hello_world" $R0
   ${Assert} $R0 == "helloWorld" \
     'ToCamelCase "hello_world" = "helloWorld"'
@@ -337,11 +300,9 @@ Section "ToCamelCase"
   ${ToCamelCase} "HTML_parser" $R0
   ${Assert} $R0 == "htmlParser" \
     'ToCamelCase "HTML_parser" = "htmlParser"'
-
 SectionEnd
 
 Section "ToSnakeCase"
-
   ${ToSnakeCase} "helloWorld" $R0
   ${Assert} $R0 == "hello_world" \
     'ToSnakeCase "helloWorld" = "hello_world"'
@@ -357,11 +318,9 @@ Section "ToSnakeCase"
   ${ToSnakeCase} "HTMLParser" $R0
   ${Assert} $R0 == "html_parser" \
     'ToSnakeCase "HTMLParser" = "html_parser"'
-
 SectionEnd
 
 Section "ToConstantCase"
-
   ${ToConstantCase} "helloWorld" $R0
   ${Assert} $R0 == "HELLO_WORLD" \
     'ToConstantCase "helloWorld" = "HELLO_WORLD"'
@@ -377,11 +336,9 @@ Section "ToConstantCase"
   ${ToConstantCase} "HTMLParser" $R0
   ${Assert} $R0 == "HTML_PARSER" \
     'ToConstantCase "HTMLParser" = "HTML_PARSER"'
-
 SectionEnd
 
 Section "ToCapitalCase"
-
   ${ToCapitalCase} "hello_world" $R0
   ${Assert} $R0 == "Hello World" \
     'ToCapitalCase "hello_world" = "Hello World"'
@@ -393,11 +350,9 @@ Section "ToCapitalCase"
   ${ToCapitalCase} "hello-world" $R0
   ${Assert} $R0 == "Hello World" \
     'ToCapitalCase "hello-world" = "Hello World"'
-
 SectionEnd
 
 Section "ToKebabCase"
-
   ${ToKebabCase} "helloWorld" $R0
   ${Assert} $R0 == "hello-world" \
     'ToKebabCase "helloWorld" = "hello-world"'
@@ -409,11 +364,9 @@ Section "ToKebabCase"
   ${ToKebabCase} "hello_world" $R0
   ${Assert} $R0 == "hello-world" \
     'ToKebabCase "hello_world" = "hello-world"'
-
 SectionEnd
 
 Section "Slugify"
-
   ${Slugify} "Hello World" $R0
   ${Assert} $R0 == "hello-world" \
     'Slugify "Hello World" = "hello-world"'
@@ -425,11 +378,9 @@ Section "Slugify"
   ${Slugify} "  --Multiple   Spaces--  " $R0
   ${Assert} $R0 == "multiple-spaces" \
     'Slugify strips leading/trailing/consecutive separators'
-
 SectionEnd
 
 Section "Reverse"
-
   ${Reverse} "Hello" $R0
   ${Assert} $R0 == "olleH" \
     'Reverse "Hello" = "olleH"'
@@ -449,11 +400,9 @@ Section "Reverse"
   ${Reverse} "Hello World" $R0
   ${Assert} $R0 == "dlroW olleH" \
     'Reverse "Hello World" = "dlroW olleH"'
-
 SectionEnd
 
 Section "Edge cases"
-
   ; Empty string
   ${ToPascalCase} "" $R0
   ${Assert} $R0 == "" \
@@ -541,11 +490,9 @@ Section "Edge cases"
   ${ToSnakeCase} "ÄRGER" $R0
   ${Assert} $R0 S== "ärger" \
     'ToSnakeCase "ÄRGER" = "ärger"'
-
 SectionEnd
 
 Section "Register preservation (transforms)"
-
   StrCpy $0 "reg0"
   StrCpy $1 "reg1"
   StrCpy $2 "reg2"
@@ -565,7 +512,6 @@ Section "Register preservation (transforms)"
     'ToPascalCase preserves $$9'
   ${Assert} $R0 == "regR0" \
     'ToPascalCase preserves $$R0'
-
 SectionEnd
 
 Section "Summary"
