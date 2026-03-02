@@ -1,6 +1,6 @@
 # StrLib.nsh
 
-A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib string-test operators and string transformation macros.
+A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib operators and string transformation macros.
 
 ## Minimum Requirements
 
