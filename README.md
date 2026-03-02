@@ -9,19 +9,9 @@ A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib ope
 
 ## Installation
 
-Clone the repository. Compile `installer.nsi` and execute it:
+Download the [latest version](https://github.com/idleberg/nsis-strlib/latest) and run the installer.
 
-```powershell
-makensis -DINSTALLNAME=StrLib installer.nsi
-```
-
-Alternatively, copy the contents of `Include\` to `${NSISDIR}\Include`:
-
-```
-NSIS\Include\StrLib.nsh
-NSIS\Include\StrLib\Logical.nsh
-NSIS\Include\StrLib\Transforms.nsh
-```
+Alternatively, clone the respository and copy `Includes\*` to `${NSISDIR}\Includes`.
 
 ## Usage
 
