@@ -9,10 +9,10 @@ A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib ope
 
 ## Installation
 
-Clone the repository. Compile `installme.nsi` and execute it:
+Clone the repository. Compile `installer.nsi` and execute it:
 
 ```powershell
-makensis -DINSTALLNAME=StrLib installme.nsi
+makensis -DINSTALLNAME=StrLib installer.nsi
 ```
 
 Alternatively, copy the contents of `Include\` to `${NSISDIR}\Include`:
