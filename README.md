@@ -9,7 +9,7 @@ A string library for [NSIS](https://nsis.sourceforge.io/) providing LogicLib ope
 
 ## Installation
 
-Download the [latest version](https://github.com/idleberg/nsis-strlib/latest) and run the installer.
+Download the [latest version](https://github.com/idleberg/nsis-strlib/releases/latest) and run the installer.
 
 Alternatively, clone the respository and copy `Includes\*` to `${NSISDIR}\Includes`.
 
