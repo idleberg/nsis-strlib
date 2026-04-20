@@ -185,5 +185,5 @@
   !macroend
   !define IsUpperCase `"" IsUpperCase`
 
-  !endif ; LOGICLIB < 202604190
+  !endif ; LOGICLIB < 20260419
 !endif ; STRLIB_TESTS_INCLUDED
