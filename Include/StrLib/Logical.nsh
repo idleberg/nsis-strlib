@@ -46,6 +46,7 @@
 !ifndef STRLIB_TESTS_INCLUDED
   !define STRLIB_TESTS_INCLUDED
 
+  !if "${LOGICLIB}0" < 202604190
   ; --- StartsWith (case-insensitive) ---
 
   !macro _StartsWith _a _b _t _f
@@ -184,4 +185,5 @@
   !macroend
   !define IsUpperCase `"" IsUpperCase`
 
+  !endif ; LOGICLIB < 20260419
 !endif ; STRLIB_TESTS_INCLUDED
