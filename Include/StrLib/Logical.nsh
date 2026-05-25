@@ -43,145 +43,85 @@
 
 !include "LogicLib.nsh"
 
-!ifndef STRLIB_TESTS_INCLUDED
-  !define STRLIB_TESTS_INCLUDED
+!ifndef STRLIB_LOGICAL_INCLUDED
+  !define STRLIB_LOGICAL_INCLUDED
 
-  ; --- StartsWith (case-insensitive) ---
+  ; LogicLib (NSIS 3.12+) ships these operators natively; only define them on
+  ; older NSIS where they are missing.
+  !ifndef StartsWith
 
-  !macro _StartsWith _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    StrLen $_LOGICLIB_TEMP `${_b}`
-    StrCpy $_LOGICLIB_TEMP `${_a}` $_LOGICLIB_TEMP
-    StrCmp $_LOGICLIB_TEMP `${_b}` `${_t}` `${_f}`
-  !macroend
-  !define StartsWith `StartsWith`
+    ; --- StartsWith ---
 
-  ; --- StartsWith (case-sensitive) ---
+    !macro _StrLib_StartsWith _op _a _b _t _f
+      !insertmacro _LOGICLIB_TEMP
+      StrLen $_LOGICLIB_TEMP `${_b}`
+      StrCpy $_LOGICLIB_TEMP `${_a}` $_LOGICLIB_TEMP
+      ${_op} $_LOGICLIB_TEMP `${_b}` `${_t}` `${_f}`
+    !macroend
+    !define StartsWith  `"StrLib_StartsWith StrCmp"`
+    !define StartsWithS `"StrLib_StartsWith StrCmpS"`
 
-  !macro _StartsWithS _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    StrLen $_LOGICLIB_TEMP `${_b}`
-    StrCpy $_LOGICLIB_TEMP `${_a}` $_LOGICLIB_TEMP
-    StrCmpS $_LOGICLIB_TEMP `${_b}` `${_t}` `${_f}`
-  !macroend
-  !define StartsWithS `StartsWithS`
+    ; --- EndsWith ---
 
-  ; --- EndsWith (case-insensitive) ---
+    !macro _StrLib_EndsWith _op _a _b _t _f
+      !insertmacro _LOGICLIB_TEMP
+      StrLen $_LOGICLIB_TEMP `${_b}`
+      IntOp $_LOGICLIB_TEMP 0 - $_LOGICLIB_TEMP
+      StrCpy $_LOGICLIB_TEMP `${_a}` "" $_LOGICLIB_TEMP
+      ${_op} $_LOGICLIB_TEMP `${_b}` `${_t}` `${_f}`
+    !macroend
+    !define EndsWith  `"StrLib_EndsWith StrCmp"`
+    !define EndsWithS `"StrLib_EndsWith StrCmpS"`
 
-  !macro _EndsWith _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    StrLen $_LOGICLIB_TEMP `${_b}`
-    IntOp $_LOGICLIB_TEMP 0 - $_LOGICLIB_TEMP
-    StrCpy $_LOGICLIB_TEMP `${_a}` "" $_LOGICLIB_TEMP
-    StrCmp $_LOGICLIB_TEMP `${_b}` `${_t}` `${_f}`
-  !macroend
-  !define EndsWith `EndsWith`
+    ; --- Contains ---
+    ; Note: Internally saves and restores $0 and $1 via the stack.
 
-  ; --- EndsWith (case-sensitive) ---
+    !macro _StrLib_Contains _op _a _b _t _f
+      !insertmacro _LOGICLIB_TEMP
+      Push $0
+      Push $1
+      StrCpy $0 `${_a}`
+      StrLen $1 `${_b}`
+      _StrLib_ContainsLoop_${LOGICLIB_COUNTER}:
+        StrCpy $_LOGICLIB_TEMP $0 $1
+        ${_op} $_LOGICLIB_TEMP `${_b}` _StrLib_ContainsF_${LOGICLIB_COUNTER}
+        StrCmp $_LOGICLIB_TEMP "" _StrLib_ContainsNF_${LOGICLIB_COUNTER}
+        StrCpy $0 $0 "" 1
+        Goto _StrLib_ContainsLoop_${LOGICLIB_COUNTER}
+      _StrLib_ContainsF_${LOGICLIB_COUNTER}:
+        StrCpy $_LOGICLIB_TEMP 1
+        Goto _StrLib_ContainsD_${LOGICLIB_COUNTER}
+      _StrLib_ContainsNF_${LOGICLIB_COUNTER}:
+        StrCpy $_LOGICLIB_TEMP 0
+      _StrLib_ContainsD_${LOGICLIB_COUNTER}:
+        Pop $1
+        Pop $0
+        !insertmacro _IncreaseCounter
+        IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
+    !macroend
+    !define Contains  `"StrLib_Contains StrCmp"`
+    !define ContainsS `"StrLib_Contains StrCmpS"`
 
-  !macro _EndsWithS _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    StrLen $_LOGICLIB_TEMP `${_b}`
-    IntOp $_LOGICLIB_TEMP 0 - $_LOGICLIB_TEMP
-    StrCpy $_LOGICLIB_TEMP `${_a}` "" $_LOGICLIB_TEMP
-    StrCmpS $_LOGICLIB_TEMP `${_b}` `${_t}` `${_f}`
-  !macroend
-  !define EndsWithS `EndsWithS`
+    ; --- IsLowerCase / IsUpperCase ---
+    ; Note: Internally saves and restores $0 via the stack.
 
-  ; --- Contains (case-insensitive) ---
-  ; Note: Internally saves and restores $0 and $1 via the stack.
-
-  !macro _Contains _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    Push $0
-    Push $1
-    StrCpy $0 `${_a}`
-    StrLen $1 `${_b}`
-    _LogicLib_ContainsLoop_${LOGICLIB_COUNTER}:
-      StrCpy $_LOGICLIB_TEMP $0 $1
-      StrCmp $_LOGICLIB_TEMP `${_b}` _LogicLib_ContainsF_${LOGICLIB_COUNTER}
-      StrCmp $_LOGICLIB_TEMP "" _LogicLib_ContainsNF_${LOGICLIB_COUNTER}
-      StrCpy $0 $0 "" 1
-      Goto _LogicLib_ContainsLoop_${LOGICLIB_COUNTER}
-    _LogicLib_ContainsF_${LOGICLIB_COUNTER}:
-      StrCpy $_LOGICLIB_TEMP 1
-      Goto _LogicLib_ContainsD_${LOGICLIB_COUNTER}
-    _LogicLib_ContainsNF_${LOGICLIB_COUNTER}:
+    !macro _StrLib_IsCase _func _a _b _t _f
+      !insertmacro _LOGICLIB_TEMP
+      Push $0
+      StrCpy $0 `${_b}`
+      System::Call "User32::${_func}(t r0 r0)i"
+      StrCmpS $0 `${_b}` _StrLib_IsCaseY_${LOGICLIB_COUNTER}
       StrCpy $_LOGICLIB_TEMP 0
-    _LogicLib_ContainsD_${LOGICLIB_COUNTER}:
-      Pop $1
-      Pop $0
-      !insertmacro _IncreaseCounter
-      IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
-  !macroend
-  !define Contains `Contains`
+      Goto _StrLib_IsCaseD_${LOGICLIB_COUNTER}
+      _StrLib_IsCaseY_${LOGICLIB_COUNTER}:
+        StrCpy $_LOGICLIB_TEMP 1
+      _StrLib_IsCaseD_${LOGICLIB_COUNTER}:
+        Pop $0
+        !insertmacro _IncreaseCounter
+        IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
+    !macroend
+    !define IsLowerCase `"" "StrLib_IsCase CharLower"`
+    !define IsUpperCase `"" "StrLib_IsCase CharUpper"`
 
-  ; --- Contains (case-sensitive) ---
-  ; Note: Internally saves and restores $0 and $1 via the stack.
-
-  !macro _ContainsS _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    Push $0
-    Push $1
-    StrCpy $0 `${_a}`
-    StrLen $1 `${_b}`
-    _LogicLib_ContainsSLoop_${LOGICLIB_COUNTER}:
-      StrCpy $_LOGICLIB_TEMP $0 $1
-      StrCmpS $_LOGICLIB_TEMP `${_b}` _LogicLib_ContainsSF_${LOGICLIB_COUNTER}
-      StrCmp $_LOGICLIB_TEMP "" _LogicLib_ContainsSNF_${LOGICLIB_COUNTER}
-      StrCpy $0 $0 "" 1
-      Goto _LogicLib_ContainsSLoop_${LOGICLIB_COUNTER}
-    _LogicLib_ContainsSF_${LOGICLIB_COUNTER}:
-      StrCpy $_LOGICLIB_TEMP 1
-      Goto _LogicLib_ContainsSD_${LOGICLIB_COUNTER}
-    _LogicLib_ContainsSNF_${LOGICLIB_COUNTER}:
-      StrCpy $_LOGICLIB_TEMP 0
-    _LogicLib_ContainsSD_${LOGICLIB_COUNTER}:
-      Pop $1
-      Pop $0
-      !insertmacro _IncreaseCounter
-      IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
-  !macroend
-  !define ContainsS `ContainsS`
-
-  ; --- IsLowerCase ---
-  ; Note: Internally saves and restores $0 via the stack.
-
-  !macro _IsLowerCase _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    Push $0
-    StrCpy $0 `${_b}`
-    System::Call "User32::CharLower(t r0 r0)i"
-    StrCmpS $0 `${_b}` _LogicLib_IsLCY_${LOGICLIB_COUNTER}
-    StrCpy $_LOGICLIB_TEMP 0
-    Goto _LogicLib_IsLCD_${LOGICLIB_COUNTER}
-    _LogicLib_IsLCY_${LOGICLIB_COUNTER}:
-      StrCpy $_LOGICLIB_TEMP 1
-    _LogicLib_IsLCD_${LOGICLIB_COUNTER}:
-      Pop $0
-      !insertmacro _IncreaseCounter
-      IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
-  !macroend
-  !define IsLowerCase `"" IsLowerCase`
-
-  ; --- IsUpperCase ---
-  ; Note: Internally saves and restores $0 via the stack.
-
-  !macro _IsUpperCase _a _b _t _f
-    !insertmacro _LOGICLIB_TEMP
-    Push $0
-    StrCpy $0 `${_b}`
-    System::Call "User32::CharUpper(t r0 r0)i"
-    StrCmpS $0 `${_b}` _LogicLib_IsUCY_${LOGICLIB_COUNTER}
-    StrCpy $_LOGICLIB_TEMP 0
-    Goto _LogicLib_IsUCD_${LOGICLIB_COUNTER}
-    _LogicLib_IsUCY_${LOGICLIB_COUNTER}:
-      StrCpy $_LOGICLIB_TEMP 1
-    _LogicLib_IsUCD_${LOGICLIB_COUNTER}:
-      Pop $0
-      !insertmacro _IncreaseCounter
-      IntCmp $_LOGICLIB_TEMP 1 `${_t}` `${_f}` `${_f}`
-  !macroend
-  !define IsUpperCase `"" IsUpperCase`
-
-!endif ; STRLIB_TESTS_INCLUDED
+  !endif ; StartsWith
+!endif ; STRLIB_LOGICAL_INCLUDED
