@@ -46,7 +46,7 @@
 !ifndef STRLIB_LOGICAL_INCLUDED
   !define STRLIB_LOGICAL_INCLUDED
 
-  ; LogicLib (NSIS 3.12+) ships these operators natively; only define them on
+  ; LogicLib (NSIS 3.12+) has "sherlocked" these operators; only define them on
   ; older NSIS where they are missing.
   !ifndef StartsWith
 
