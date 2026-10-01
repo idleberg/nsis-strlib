@@ -23,6 +23,10 @@ Alternatively, clone the respository and copy `Includes\*` to `${NSISDIR}\Includ
 
 ### String operators
 
+> [!NOTE]
+>
+> These string operators are part of the official NSIS distribution as of v3.12
+
 LogicLib operators for use with `${If}`, `${IfNot}`, `${ElseIf}`, `${AndIf}`, `${OrIf}`, etc.
 
 | Macro            | Example                          | Description                     |
